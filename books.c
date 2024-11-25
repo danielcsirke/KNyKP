@@ -123,7 +123,7 @@ int insert_between_b(book_list_ptr prev, book_list_ptr next, data_b book)
 // Egy könyv adatainak kiíratása.
 void print_book(data_b book)
 {
-    printf("Cím: %s\nÍró: %s\nKiadó: %s\nISBN: %s\nKölcsönzés állapota: %s\nKönyvtári azonosító: %s\nMűfaj: %s\n", book.title, book.author, book.publisher, book.isbn, book.borrowed, book.library_number, book.genres);
+    printf("Cím: %s\nÍró: %s\nKiadó: %s\nISBN: %s\nKölcsönzés állapota: %s\nKönyvtári azonosító: %s\nMűfaj: %s\n\n", book.title, book.author, book.publisher, book.isbn, book.borrowed, book.library_number, book.genres);
 }
 
 // Az összes olyan könyv keresése, amelynek szerzője tartalmazza a megadott karakterláncot. Nem mindegy a nagy és kisbetűk használata.

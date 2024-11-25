@@ -1,1 +1,5 @@
 Meg kell változtassam a beolvasó algoritmust, ki kell töröljem a newline karaktereket minden stringből!
+
+Valami elbaszódott az íróra való kereséskor! 
+
+Mostmár a genre is elbaszódott

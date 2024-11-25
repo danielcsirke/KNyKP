@@ -25,8 +25,10 @@ blist create_blist(void)
         return (blist){NULL, NULL};
     }
     // A head és tail elemek inicializálása.
+    l.head->book = (data_b){NULL, NULL, NULL, NULL, NULL, NULL, NULL};
     l.head->next = l.tail;
     l.head->prev = NULL;
+    l.tail->book = (data_b){NULL, NULL, NULL, NULL, NULL, NULL, NULL};
     l.tail->prev = l.head;
     l.tail->next = NULL;
     return l;
@@ -45,6 +47,19 @@ void dispose_blist(blist l)
     // A head és tail elemek felszabadítása.
     free(l.head);
     free(l.tail);
+    l.head = NULL;
+    l.tail = NULL;
+}
+
+void del_last_newline_from_structure_b(data_b book)
+{
+        del_last_newline(book.title);
+        del_last_newline(book.author);
+        del_last_newline(book.publisher);
+        del_last_newline(book.isbn);
+        del_last_newline(book.borrowed);
+        del_last_newline(book.library_number);
+        del_last_newline(book.genres);
 }
 
 // Adatok beolvasása egy file-ból, és azok hozzáadása a könyvlistához.
@@ -61,6 +76,8 @@ int get_data_b(blist book_list, FILE *fb)
     while (fgets(temp_title, INPUT_BUFFER, fb) != NULL && fgets(temp_author, INPUT_BUFFER, fb) != NULL && fgets(temp_publisher, INPUT_BUFFER, fb) != NULL && fgets(temp_isbn, INPUT_BUFFER, fb) != NULL && fgets(temp_borrowed, INPUT_BUFFER, fb) != NULL && fgets(temp_library_number, INPUT_BUFFER, fb) != NULL && fgets(temp_genres, INPUT_BUFFER, fb) != NULL) {
         // Az olvasott adatok összefűzése egy könyvadat-struktúrába.
         data_b book = concatenate_to_data_b(temp_title, temp_author, temp_publisher, temp_isbn, temp_borrowed, temp_library_number, temp_genres);
+        // Az utolsó newline karakterek törlése a fileból. 
+        del_last_newline_from_structure_b(book);
         // Az összefűzött adatok hozzáadása a listához.
         if (insert_between_b(book_list.head, book_list.head->next, book) != 0){
             perror("Hiba a get_data_b() függvényben, az insert_between() függvény hibát adott");
@@ -141,5 +158,4 @@ void search_for_title(blist books, char *title)
         p = p->next;
     }
 }
-
 

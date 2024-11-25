@@ -1,0 +1,1 @@
+Meg kell változtassam a beolvasó algoritmust, ki kell töröljem a newline karaktereket minden stringből!

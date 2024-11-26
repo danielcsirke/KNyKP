@@ -2,90 +2,95 @@
 #include <stdlib.h>
 #include <string.h>
 #include "books.h"
-#include "config.h"
 #include "customers.h"
 #include "functions.h"
+#include "config.h"
+
+
 
 int main(void)
 {
+    // A listák létrehozása - kétszeresen láncolt strázsás listák.
     clist customers = create_clist();
     blist books = create_blist();
 
+    // A file-ok megnyitása
     FILE *fc = NULL, *fb = NULL;
     if (open_files("customers.txt", "books.txt", &fc, &fb)) {
-        return 1;
+        perror("Nem sikerült megnyitni az egyik szükséges file-t\n");
+        printf("A hiba miatt a program bezáródik!\n");
+        dispose_blist(books);
+        dispose_clist(customers);
+        return -1;
     }
 
-    get_data_c(customers, fc);
-    get_data_b(books, fb);
+    // Beolvasás a file-okba.
+    if (get_data_c(customers, fc) != 0){
+        dispose_blist(books);
+        dispose_clist(customers);
+        close_files(&fc, &fb);
+        printf("A hiba miatt a program bezáródik!\n");
+        return -1;
 
+    }
+    if (get_data_b(books, fb) != 0){
+        dispose_blist(books);
+        dispose_clist(customers);
+        close_files(&fc, &fb);
+        printf("A hiba miatt a program bezáródik!\n");
+        return -1;
+    }
+
+    // A file-ok bezárása.
     close_files(&fc, &fb);
 
-char query[INPUT_BUFFER];
-int choice;
+    // Változó létrehozása a felhasználó választásához.
+    int choice;
+    do{
+        // A képernyő törlése, és a menü kiíratása
+        clear_screen();
+        print_menu();
 
-printf("Library Search System:\n");
-printf("Enter the corresponding number to perform a search, or '0' to quit:\n");
+        // A felhasználó megkérdezése mit akar csinálni
+        if (scanf("%d", &choice) != 1) {
+            printf("Érvénytelen opció! Kérem adjon meg egy számot a fent felsorolt opciók közül!");
+            clear_input_stream(stdin);
+            // Érvénytelen érték adása a choice változónak. 
+            choice = -1;
+            continue;
+        }
 
-while (1) {
-    printf("\nMenu:\n");
-    printf("1. Search by Customer Name\n");
-    printf("2. Search by Customer ID\n");
-    printf("3. Search by Customer Debt\n");
-    printf("4. Search by Book Author\n");
-    printf("5. Search by Book Genre\n");
-    printf("0. Exit\n");
-    printf("> ");
-    
-    if (scanf("%d", &choice) != 1) {
-        fprintf(stderr, "Invalid input. Please enter a number.\n");
-        while (getchar() != '\n'); // Clear invalid input
-        continue;
-    }
-    
-    if (choice == 0) {
-        printf("Exiting the program. Goodbye!\n");
-        break;
-    }
+        // A felhasználó választásának kezelése
+        switch(choice) {
+            case 0:
+                // Elköszönés a felhasználótól.
+                printf("Köszönjük, hogy használta a programot! Viszontlátásra!\n");
+            case 1:
+                perform_search(search_for_name_ptr, (void*)&customers);
+                break;
+            case 2:
+                perform_search(search_for_id_ptr, (void*)&customers);
+                break;
+            case 3:
+                perform_search(search_for_debt_ptr, (void*)&customers);
+                break;
+            case 4:
+                perform_search(search_for_title_ptr, (void*)&books);
+                break;
+            case 5:
+                perform_search(search_for_author_ptr, (void*)&books);
+                break;
+            case 6:
+                perform_search(search_for_genre_ptr, (void*)&books);
+                break;
+            default:
+                printf("Érvénytelen opció! Próbálja újra!\n");
+                clear_input_stream(stdin);
+                break;
+        }
+    }while(choice != 0);
 
-    // Clear input buffer before taking string input
-    while (getchar() != '\n'); 
-
-    printf("Enter your query: ");
-    if (!fgets(query, INPUT_BUFFER, stdin)) {
-        fprintf(stderr, "Error reading input.\n");
-        continue;
-    }
-    // Remove trailing newline character from fgets
-    query[strcspn(query, "\n")] = '\0';
-
-    switch (choice) {
-    case 1:
-        printf("\nSearching for Customer by Name: %s\n", query);
-        search_for_name(customers, query);
-        break;
-    case 2:
-        printf("\nSearching for Customer by ID: %s\n", query);
-        search_for_id(customers, query);
-        break;
-    case 3:
-        printf("\nSearching for Customer by Debt: %s\n", query);
-        search_for_debt(customers, query);
-        break;
-    case 4:
-        printf("\nSearching for Book by Author: %s\n", query);
-        search_for_author(books, query);
-        break;
-    case 5:
-        printf("\nSearching for Book by Genre: %s\n", query);
-        search_for_genre(books, query);
-        break;
-    default:
-        printf("Invalid option. Please select a valid menu number.\n");
-    }
-}
-
-
+    // A listák felszabadítása. 
     dispose_clist(customers);
     dispose_blist(books);
 

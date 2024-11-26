@@ -34,4 +34,8 @@ void search_for_name(clist customers, char *name);
 void search_for_id(clist customers, char *id);
 void search_for_debt(clist customers, char *debt);
 
+search_function_ptr search_for_name_ptr = search_for_name;
+search_function_ptr search_for_id_ptr = search_for_id;
+search_function_ptr search_for_debt_ptr = search_for_debt;
+
 #endif

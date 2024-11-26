@@ -67,7 +67,7 @@ int get_data_b(blist book_list, FILE *fb)
 {
     if (!fb) {
         // Hibaüzenet, ha hibás filepointert kapott a függvény. 
-        perror("Hiba a file megnyitása közben a get_data_b() függvényben");
+        perror("Nem sikerült a könyvek file-jának beolvasása");
         return -1;
     }
     // Ideiglenes változók a fájlból olvasott adatok tárolására.
@@ -79,7 +79,7 @@ int get_data_b(blist book_list, FILE *fb)
         // Az utolsó newline karakterek törlése a fileból. 
         del_last_newline_from_structure_b(book);
         // Az összefűzött adatok hozzáadása a listához.
-        if (insert_between_b(book_list.head, book_list.head->next, book) != 0){
+        if (insert_between_b(book_list.head, book_list.head->next, book) != 0) {
             perror("Hiba a get_data_b() függvényben, az insert_between() függvény hibát adott");
             return -1;
         }

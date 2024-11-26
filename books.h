@@ -3,6 +3,7 @@
 
 
 #include <stdio.h>
+#include "functions.h"
 
 
 /* Ez a header file egy könyveket tartalmazó láncolt lista műveleteihez szükséges struktúradefiníciókat, és függvényeket tartalmaz. */
@@ -44,5 +45,8 @@ void search_for_title(blist books, char *title); // Paraméterként megkapott é
 void print_book(data_b book); // Egyetlen paraméterként megkapott data_b stuktúra minden elemét kidobja az stdio-ra.
 void del_last_newline_from_structure_b(data_b book); // Törli a paraméterként kapott struktúra utolsó elemét, ha az newline ('\n') karakter. Ciklussal, nem rekurzióval működik. 
 
+search_function_ptr search_for_author_ptr = search_for_author;
+search_function_ptr search_for_genre_ptr = search_for_genre;
+search_function_ptr search_for_title_ptr = search_for_title;
 
 #endif

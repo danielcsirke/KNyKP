@@ -3,18 +3,31 @@
 
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 
-typedef void (*search_function_ptr)(void *list, char* key);
+// A függvénypointer típusdeklarációja.
+typedef void (*search_function_ptr)(void *list_ptr, char *key);
 
-int open_files(char *file_c, char *file_b, FILE **fc, FILE **fb); // Megnyitja a paraméterként kapott filenevű file-okat.
-void close_files(FILE **fc, FILE **fb); // A megnyitott két file-t bezárja. 
-void del_last_newline(char *str); // A beolvasás során fgets() függvény által bekért utolsó newline karaktereket eltávolítja. 
-void clear_input_stream(FILE *stream); // Mivel a c szabványban a fflush(stdin) nincs definiálva (forrás: cppreference.com) ezért 
-void clear_screen(void); // A parancssori kiírt infók törlés a jobb kinézet érdekében
+// Megnyitja a paraméterként kapott filenevű file-okat.
+int open_files(char *file_c, char *file_b, FILE **fc, FILE **fb); 
+
+// A megnyitott két file-t bezárja. 
+void close_files(FILE **fc, FILE **fb); 
+
+// A beolvasás során fgets() függvény által bekért utolsó newline karaktereket eltávolítja. 
+void del_last_newline(char *str); 
+
+// Mivel a c szabványban a fflush(stdin) nincs definiálva (forrás: cppreference.com) ezért 
+void clear_input_stream(FILE *stream); 
+
+// A parancssori kiírt infók törlés a jobb kinézet érdekében
+void clear_screen(void); 
+
+// A keresést elvégző függvény - paraméterként kap egy függvénypointert, és egy listát
 void perform_search(search_function_ptr search_function, void *list);
+ 
+// A menüt kiírja az stdout-ra. 
+void print_menu(void); 
 
 
 #endif

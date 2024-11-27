@@ -10,7 +10,7 @@
                 "${file}",
                 "books.c",
                 "customers.c",
-                "function.c",
+                "functions.c",
                 "-lm",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}",

@@ -103,6 +103,7 @@ void perform_search(search_function_ptr search_function, void *list)
 {
     // Ideiglenes string létrehozása a keresési kulcs tárolására.
     char *temp = (char*)malloc(INPUT_BUFFER);
+
     if (!temp) {
         perror("Nem sikerült a memóriafoglalás a keresés közben");
         return;
@@ -110,9 +111,11 @@ void perform_search(search_function_ptr search_function, void *list)
 
     // A keresési kulcs bekérése a felhasználótól.
     printf("Kérem adja meg a keresési kulcsot! Ügyeljen a kis- és nagybetűk helyes használatára!\n");
+
     if(fgets(temp, INPUT_BUFFER, stdin) == NULL) {
         perror("Nem sikerült olvasni a keresés során");
         free(temp);
+        
         return;
     }
 

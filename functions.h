@@ -6,7 +6,7 @@
 
 
 // A függvénypointer típusdeklarációja.
-typedef void (*search_function_ptr)(void *list_ptr, char *key);
+typedef void (*search_function_ptr)(void *, char *);
 
 // Megnyitja a paraméterként kapott filenevű file-okat.
 int open_files(char *file_c, char *file_b, FILE **fc, FILE **fb); 

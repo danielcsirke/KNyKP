@@ -181,17 +181,20 @@ void print_customer(data_c customer)
 }
 
 // Az összes olyan ember keresése akinek a nevében megtalálható a megadott karakterlánc. 
-void search_for_name(clist customers, char *name)
+void search_for_name(void *list_of_customers, char *name)
 {
+    // Típuskonverzió a megfelelő működéshez
+    clist *customers = (clist*)list_of_customers;
+
     if (!name) {
         perror("Hibás keresési kulcs (NULL pointer)");
 
         return;
     }
 
-    customer_list_ptr p = customers.head->next;
+    customer_list_ptr p = customers->head->next;
 
-    while (p != customers.tail) {
+    while (p != customers->tail) {
         if (strstr(p->customer.name, name))
             print_customer(p->customer);
         p = p->next;
@@ -199,8 +202,11 @@ void search_for_name(clist customers, char *name)
 }
 
 // Az összes olyan ember keresése, amelynek azonosítószáma tartalmazza a megadott karatkerláncot. 
-void search_for_id(clist customers, char *id)
+void search_for_id(void *list_of_customers, char *id)
 {
+    // Típuskonverzió a megfelelő működéshez
+    clist *customers = (clist*)list_of_customers;
+
     // A pointerek leelenőrzése a segfault elkerülése érdekében.
     if (!id) {
         perror("Hibás keresési kulcs (NULL pointer)");
@@ -208,9 +214,9 @@ void search_for_id(clist customers, char *id)
         return;
     }
 
-    customer_list_ptr p = customers.head->next;
+    customer_list_ptr p = customers->head->next;
 
-    while (p != customers.tail) {
+    while (p != customers->tail) {
         if (strstr(p->customer.id, id)) 
             print_customer(p->customer);
         p = p->next;
@@ -218,8 +224,11 @@ void search_for_id(clist customers, char *id)
 }
 
 // Az összes olyan ember keresése, akinek a tartozása megegyezik a megadott értékkel.
-void search_for_debt(clist customers, char *debt)
+void search_for_debt(void *list_of_customers, char *debt)
 {
+    // Típuskonverzió a megfelelő működéshez
+    clist *customers = (clist*)list_of_customers;
+
     // A pointerek leelenőrzése a segfault elkerülése érdekében.
     if (!debt) {
         perror("Hibás keresési kulcs (NULL pointer)");
@@ -227,9 +236,9 @@ void search_for_debt(clist customers, char *debt)
         return;
     }
 
-    customer_list_ptr p = customers.head->next;
+    customer_list_ptr p = customers->head->next;
 
-    while (p != customers.tail) {
+    while (p != customers->tail) {
         if (strcmp(p->customer.debt, debt) == 0)
             print_customer(p->customer);
         p = p->next;

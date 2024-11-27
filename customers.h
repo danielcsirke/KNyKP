@@ -46,13 +46,13 @@ int insert_between_c(customer_list_ptr prev, customer_list_ptr next, data_c cust
 void dispose_clist(clist l);
 
 // Paraméterként megkapott értékre keres kis és nagybetűt megkülönböztetve az emberek nevei között. Listáz minden olyan találatot ahol a keresési paraméter teljesen megtaláltató, nem csak teljes egyezés esetén ad eredményt.
-void search_for_name(clist customers, char *name);
+void search_for_name(void *list_of_customers, char *name);
 
 // Paraméterként megkapott értékre keres kis és nagybetűt megkülönböztetve az emberek azonosító számai között. Listáz minden olyan találatot ahol a keresési paraméter teljesen megtaláltató, nem csak teljes egyezés esetén ad eredményt.
-void search_for_id(clist customers, char *id);
+void search_for_id(void *list_of_customers, char *id);
 
 // Paraméterként megkapott értékre keres kis és nagybetűt megkülönböztetve az emberek tartozásai között. Csak olyan találatot listáz, ahol teljes eredmény van.
-void search_for_debt(clist customers, char *debt);
+void search_for_debt(void *list_of_customers, char *debt);
 
 // Egyetlen paraméterként megkapott data_c struktúra minden elemét kiírja az stdout-ra.
 void print_customer(data_c customer);

@@ -50,13 +50,13 @@ int insert_between_b(book_list_ptr prev, book_list_ptr next, data_b book);
 void dispose_blist(blist l); 
 
 // Paraméterként megkapott értékre keres kis és nagybetűt megkülönböztetve a könyvek szerzői között. Listáz minden olyan találatot ahol a keresési paraméter teljesen megtaláltató, nem csak teljes egyezés esetén ad eredményt.
-void search_for_author(blist books, char *author); 
+void search_for_author(void *list_of_books, char *author); 
 
 // Paraméterként megkapott értékre keres kis és nagybetűt megkülönböztetve a könyvek stílusában. Listáz minden olyan találatot ahol a keresési paraméter teljesen megtaláltató, nem csak teljes egyezés esetén ad eredményt.
-void search_for_genre(blist books, char *genre); 
+void search_for_genre(void *list_of_books, char *genre); 
 
 // Paraméterként megkapott értékekre keres kis és nagybetűt megkülönböztetve a könyvek címei között. Listáz minden olyan találatot ahol a keresési paraméter teljesen megtaláltató, nem csak teljes egyezés esetén ad eredményt.
-void search_for_title(blist books, char *title); 
+void search_for_title(void *list_of_books, char *title); 
 
 // Egyetlen paraméterként megkapott data_b stuktúra minden elemét kiírja az stdout-ra.
 void print_book(data_b book); 

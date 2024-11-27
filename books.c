@@ -204,8 +204,11 @@ void print_book(data_b book)
 }
 
 // Az összes olyan könyv keresése, amelynek szerzője tartalmazza a megadott karakterláncot. Nem mindegy a nagy és kisbetűk használata.
-void search_for_author(blist books, char *author)
+void search_for_author(void *list_of_books, char *author)
 {   
+    // A függvény helyes működéséhez típuskonverzió 
+    blist *books = (blist*)list_of_books;
+
     // A pointerek leelenőrzése a segfault elkerülése érdekében. 
     if (!author) {
         perror("Hibás keresési kulcs (NULL pointer)");
@@ -213,9 +216,9 @@ void search_for_author(blist books, char *author)
         return;
     }
 
-    book_list_ptr p = books.head->next;
+    book_list_ptr p = books->head->next;
 
-    while (p != books.tail) {
+    while (p != books->tail) {
         if (strstr(p->book.author, author))
             print_book(p->book);
         p = p->next;
@@ -223,8 +226,11 @@ void search_for_author(blist books, char *author)
 }
 
 // Az összes olyan könyv keresése, amelynek műfaja tartalmazza a megadott karakterláncot. Nem mindegy a nagy és kisbetűk használata.
-void search_for_genre(blist books, char *genre)
+void search_for_genre(void *list_of_books, char *genre)
 {
+    // A függvény helyes működéséhez típuskonverzió
+    blist *books = (blist*)list_of_books;
+
     // A pointerek leelenőrzése a segfault elkerülése érdekében.
     if (!genre) {
         perror("Hibás keresési kulcs (NULL pointer)");
@@ -232,9 +238,9 @@ void search_for_genre(blist books, char *genre)
         return;
     }
 
-    book_list_ptr p = books.head->next;
+    book_list_ptr p = books->head->next;
 
-    while (p != books.tail) {
+    while (p != books->tail) {
         if (strstr(p->book.genres, genre))
             print_book(p->book);
         p = p->next;
@@ -242,8 +248,11 @@ void search_for_genre(blist books, char *genre)
 }
 
 // Az összes olyan könyv keresése, amelynek címe tartalmazza a megadott karakterláncot. Nem mindegy a nagy és kisbetűk használata.
-void search_for_title(blist books, char *title)
+void search_for_title(void *list_of_books, char *title)
 {
+    // A függvény helyes működéséhez típuskonverzió
+    blist *books = (blist*)list_of_books;
+
     // A pointerek leelenőrzése a segfault elkerülése érdekében.
     if (!title) {
         perror("Hibás keresési kulcs (NULL pointer)");
@@ -251,9 +260,9 @@ void search_for_title(blist books, char *title)
         return;
     }
 
-    book_list_ptr p = books.head->next;
+    book_list_ptr p = books->head->next;
 
-    while (p != books.tail) {
+    while (p != books->tail) {
         if (strstr(p->book.title, title))
             print_book(p->book);
         p = p->next;

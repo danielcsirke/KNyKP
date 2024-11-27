@@ -54,7 +54,7 @@ void del_last_newline(char *str)
 void print_menu(void)
 {
     printf("\n---- Menü ----\n");
-    printf("--------------");
+    printf("--------------\n");
     printf("1. Keresés személy nevére\n");
     printf("2. Keresés személy azonosító számára\n");
     printf("3. Keresés adott összegű tartozáshoz tartozó személyre\n");
@@ -67,19 +67,12 @@ void print_menu(void)
 
 // A bemenet törlése - a fflush(stdin) csak kimeneti stream-eken működik, azért kell ehhez a módhoz folyamodni
 
-void clear_input_stream(FILE *stream)
+void clear_input_stream(void)
 {
     // Törli a paraméterként kapott file pointer helyen található adatokat. 
-    while (fgetc(stream) != EOF){}
-
-    // Az stdin bezárásához segítség nyújtása a felhasználó számára.
-    #ifdef _WIN32
-        if (stream == stdin)
-            printf("Kérem nyomja le a CTRL + Z billentyűkombinációt a folytatáshoz!\n");
-    #else
-        if (stream == stdin)
-            printf("Kérem nyomja le a CTRL + D billentyűkombinációt a folytatáshoz!\n");
-    #endif
+    char c;
+    //while ((c = getchar()) != '\n' && c != EOF );
+    while(scanf("%c",&c)==1);
 }
 
 // A parancssori eddig kiírt infók törlése a képernyőről
@@ -115,7 +108,7 @@ void perform_search(search_function_ptr search_function, void *list)
     if(fgets(temp, INPUT_BUFFER, stdin) == NULL) {
         perror("Nem sikerült olvasni a keresés során");
         free(temp);
-        
+
         return;
     }
 

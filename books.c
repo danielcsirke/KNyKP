@@ -7,12 +7,12 @@
 
 
 // A függvénypointerek értékadása. Deklaráció a books.h file-ban.
-search_for_author_ptr = search_for_author;
-search_for_genre_ptr = search_for_genre;
-search_for_title_ptr = search_for_title;
+search_function_ptr search_for_author_ptr = search_for_author;
+search_function_ptr search_for_genre_ptr = search_for_genre;
+search_function_ptr search_for_title_ptr = search_for_title;
 
 
-// Létrehozza a könyvlista alapvető struktúráját (head és tail elemekkel).
+// Létrehozza a könyveket tartalmazó lista alapvető struktúráját (head és tail elemekkel).
 blist create_blist(void)
 {
     // Memóriafoglalás a lista fejének.
@@ -65,7 +65,7 @@ void dispose_blist(blist l)
         free(temp->book.library_number);
         free(temp->book.genres);
 
-        // A listaelem effektív felszabadítása
+        // A listaelem felszabadítása
         free(temp);
     }
 
@@ -84,10 +84,11 @@ void del_last_newline_from_structure_b(data_b book)
 {
     // A kapott pointerek ellenőrzése, ha hibás akkor a függvényből való kilépés.
     if (!book.title || !book.author || !book.publisher || !book.isbn || !book.borrowed || !book.library_number || !book.genres) {
-        perror("Az újsor karakterek ('\n') törlése nem sikerült");
+        perror("Az újsor karakterek ('\\n') törlése nem sikerült");
 
         return;
     }
+
     // A törlés művelete stringenként.
     del_last_newline(book.title);
     del_last_newline(book.author);
@@ -109,7 +110,7 @@ int get_data_b(blist book_list, FILE *fb)
         return -1;
     }
 
-    // Ideiglenes változók a fájlból olvasott adatok tárolására.
+    // Ideiglenes változók a file-ból olvasott adatok tárolására.
     char temp_title[INPUT_BUFFER], temp_author[INPUT_BUFFER], temp_publisher[INPUT_BUFFER], temp_isbn[INPUT_BUFFER], temp_borrowed[INPUT_BUFFER], temp_library_number[INPUT_BUFFER], temp_genres[INPUT_BUFFER];
 
     // Beolvasás soronként, amíg minden adatot sikeresen olvasunk.
@@ -124,7 +125,7 @@ int get_data_b(blist book_list, FILE *fb)
             return -1;
         }
 
-        // Az utolsó newline karakterek törlése a fileból. 
+        // Az utolsó newline karakterek törlése a struktúrából. 
         del_last_newline_from_structure_b(book);
 
         // Az összefűzött adatok hozzáadása a listához.
@@ -156,7 +157,7 @@ data_b concatenate_to_data_b(char *title, char *author, char *publisher, char *i
     return book;
 }
 
-// Új könyvlista elem beszúrása két meglévő elem közé.
+// Új könyvlistaelem beszúrása két meglévő elem közé.
 int insert_between_b(book_list_ptr prev, book_list_ptr next, data_b book)
 {
     // Memóriafoglalás az új elemhez.
@@ -164,7 +165,7 @@ int insert_between_b(book_list_ptr prev, book_list_ptr next, data_b book)
 
     // Memóriafoglalás ellenőrzése, hogy sikeres-e.
     if (!p) {
-        perror("Nem sikerült memóriafoglalás a könyveket tartalmazó listába beszúrás során");
+        perror("Nem sikerült memóriát foglalni a könyveket tartalmazó listába beszúrás során");
 
         return -1;
     }
@@ -184,7 +185,8 @@ void print_book(data_b book)
 {   
     // Ellenőrzöm, hogy érvényes pointereket kaptam-e hogy ne történjen segfault a printf miatt.
     if (!book.title || !book.author || !book.publisher || !book.isbn || !book.borrowed || !book.library_number || !book.genres) {
-        perror("Nullpointer a struktúra valamely elemében! Nem írható ki!");
+        perror("Nullpointer a struktúra valamely elemében! Nem írható ki");
+
         return;
     }
 
@@ -203,13 +205,16 @@ void print_book(data_b book)
 
 // Az összes olyan könyv keresése, amelynek szerzője tartalmazza a megadott karakterláncot. Nem mindegy a nagy és kisbetűk használata.
 void search_for_author(blist books, char *author)
-{
+{   
+    // A pointerek leelenőrzése a segfault elkerülése érdekében. 
     if (!author) {
         perror("Hibás keresési kulcs (NULL pointer)");
 
         return;
     }
+
     book_list_ptr p = books.head->next;
+
     while (p != books.tail) {
         if (strstr(p->book.author, author))
             print_book(p->book);
@@ -220,12 +225,15 @@ void search_for_author(blist books, char *author)
 // Az összes olyan könyv keresése, amelynek műfaja tartalmazza a megadott karakterláncot. Nem mindegy a nagy és kisbetűk használata.
 void search_for_genre(blist books, char *genre)
 {
+    // A pointerek leelenőrzése a segfault elkerülése érdekében.
     if (!genre) {
         perror("Hibás keresési kulcs (NULL pointer)");
 
         return;
     }
+
     book_list_ptr p = books.head->next;
+
     while (p != books.tail) {
         if (strstr(p->book.genres, genre))
             print_book(p->book);
@@ -236,12 +244,15 @@ void search_for_genre(blist books, char *genre)
 // Az összes olyan könyv keresése, amelynek címe tartalmazza a megadott karakterláncot. Nem mindegy a nagy és kisbetűk használata.
 void search_for_title(blist books, char *title)
 {
+    // A pointerek leelenőrzése a segfault elkerülése érdekében.
     if (!title) {
         perror("Hibás keresési kulcs (NULL pointer)");
 
         return;
     }
+
     book_list_ptr p = books.head->next;
+
     while (p != books.tail) {
         if (strstr(p->book.title, title))
             print_book(p->book);

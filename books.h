@@ -20,7 +20,7 @@ typedef struct data_b {
     char *genres; // A könyv műfajai, KISBETŰVEL - a keresőfüggvény nem case-szenzitív, tehát ha nagybetűvel van beírva a file-ba a műfaj, nem fogja a felhasználónak megtalálni!!
 } data_b;
 
-// A lista egy elemét definiáló struktúra
+// A lista egy elemét definiáló struktúra.
 // Az implementációhoz kétszeresen láncolt, elől-hátul strázsás listát használok.
 typedef struct book_list_element {
     data_b book;
@@ -58,11 +58,12 @@ void search_for_genre(blist books, char *genre);
 // Paraméterként megkapott értékekre keres kis és nagybetűt megkülönböztetve a könyvek címei között. Listáz minden olyan találatot ahol a keresési paraméter teljesen megtaláltató, nem csak teljes egyezés esetén ad eredményt.
 void search_for_title(blist books, char *title); 
 
-// Egyetlen paraméterként megkapott data_b stuktúra minden elemét kidobja az stdio-ra.
+// Egyetlen paraméterként megkapott data_b stuktúra minden elemét kiírja az stdout-ra.
 void print_book(data_b book); 
 
 // Törli a paraméterként kapott struktúrákban lévő stringek utolsó karatkerét, ha az newline ('\n') karakter.
 void del_last_newline_from_structure_b(data_b book); 
+
 
 // Definiálja a keresési logikát megvalósító függvénypointerek neveit. 
 extern search_function_ptr search_for_author_ptr;

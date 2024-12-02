@@ -1,34 +1,28 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: gcc build active file",
-            "command": "/usr/bin/gcc",
+            "type": "shell",
+            "label": "Library Project",
+            "command": "gcc",
             "args": [
-                "-fdiagnostics-color=always",
+                "-I", "${workspaceFolder}/include",   // Corrected include path
                 "-g",
-                "${file}",
-                "books.c",
-                "customers.c",
-                "functions.c",
                 "-lm",
-                "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                "-o", "${workspaceFolder}/build/library_software", // Corrected output path
+                "${workspaceFolder}/src/main.c",     // Corrected source files
+                "${workspaceFolder}/src/customers.c",
+                "${workspaceFolder}/src/books.c",
+                "${workspaceFolder}/src/functions.c",
                 "-Wall",
                 "-Werror"
             ],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": ["$gcc"],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "compiler: /usr/bin/gcc"
+            "detail": "Compile the entire project"
         }
-    ],
-    "version": "2.0.0"
+    ]
 }

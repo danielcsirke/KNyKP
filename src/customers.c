@@ -225,13 +225,22 @@ void search_for_id(void *list_of_customers, char *id)
         return;
     }
 
+    // Egy ellenőrző változó annak ellenőrzéséhez, hogy a függvény talált-e adatot. 
+    bool check = false;
+
     customer_list_ptr p = customers->head->next;
 
     while (p != customers->tail) {
-        if (strstr(p->customer.id, id)) 
+        if (strstr(p->customer.id, id)) {
             print_customer(p->customer);
+            check = true;
+        }            
         p = p->next;
     }
+    
+    if (check == false)
+        printf("\nNincs találat\n");    
+    printf("Nyomjon Enter-t a folytatáshoz!\n");
 }
 
 // Az összes olyan ember keresése, akinek a tartozása megegyezik a megadott értékkel.
@@ -247,13 +256,23 @@ void search_for_debt(void *list_of_customers, char *debt)
         return;
     }
 
+    // Egy ellenőrző változó annak ellenőrzéséhez, hogy a függvény talált-e adatot. 
+    bool check = false;
+
     customer_list_ptr p = customers->head->next;
 
     while (p != customers->tail) {
-        if (strcmp(p->customer.debt, debt) == 0)
+        if (strcmp(p->customer.debt, debt) == 0) {
             print_customer(p->customer);
+            check = true;
+        }
         p = p->next;
     }
+
+    if (check == false)
+        printf("\nNincs találat\n");    
+        
+    printf("Nyomjon Enter-t a folytatáshoz!\n");
 }
 
 

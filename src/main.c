@@ -16,10 +16,17 @@
         clist customers = create_clist();
         blist books = create_blist();
 
+        // A file-ok neveinek bekérése
+        char books_file_name[4096], customer_file_name[4096];
+        printf("Kérem adja meg az embereket tartalmazó file elérési útját!\n");
+        scanf("%4095s", customer_file_name);
+        printf("Kérem adja meg a könyveket tartalmazó file elérési útját!\n");
+        scanf("%4095s", books_file_name);
+
         // A file-ok megnyitása
         FILE *fc = NULL, *fb = NULL;
-        if (open_files("customers.txt", "books.txt", &fc, &fb)) {
-            perror("Nem sikerült megnyitni az egyik szükséges file-t\n");
+        if (open_files(customer_file_name, books_file_name, &fc, &fb)) {
+            perror("Nem sikerült megnyitni az egyik szükséges file-t");
             printf("A hiba miatt a program bezáródik!\n");
             dispose_blist(books);
             dispose_clist(customers);
@@ -33,7 +40,6 @@
             close_files(&fc, &fb);
             printf("A hiba miatt a program bezáródik!\n");
             return -1;
-
         }
 
         if (get_data_b(books, fb) != 0){
@@ -64,7 +70,11 @@
 
             // A felhasználó választásának kezelése
             switch(choice) {
-                case 0: printf("Köszönjük, hogy használta a programot! Viszontlátásra!\n"); break;
+                case 0: 
+                    printf("Köszönjük, hogy használta a programot! Viszontlátásra!\n"); 
+                    dispose_clist(customers);
+                    dispose_blist(books);
+                    exit(0);
                 case 1: perform_search(search_for_name_ptr, (void*)&customers); break;
                 case 2: perform_search(search_for_id_ptr, (void*)&customers); break;
                 case 3: perform_search(search_for_debt_ptr, (void*)&customers); break;
@@ -75,7 +85,7 @@
                     printf("Érvénytelen opció! Próbálja újra!\n");
                     clear_input();
                     continue;
-            }   
+            }
             clear_input();
             printf("Szeretne másik keresést indítani?\nNyomjon 1-et új keresés indításához, 0-t kilépéshez.\n");
             scanf("%d", &choice);

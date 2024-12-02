@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "books.h"
 #include "functions.h"
 #include "config.h"
@@ -195,7 +196,7 @@ void print_book(data_b book)
     printf("Író: %s\n", book.author);
     printf("Kiadó: %s\n", book.publisher);
     printf("ISBN: %s\n", book.isbn);
-    if (strcmp("", book.borrowed) == 0)
+    if (strcmp("0", book.borrowed) == 0)
         printf("Kölcsönzés állapota: Nincs kikölcsönözve\n");
     else 
         printf("Ki van kölcsönözve, a kölcsönző azonosító száma: %s\n", book.borrowed);
@@ -216,13 +217,23 @@ void search_for_author(void *list_of_books, char *author)
         return;
     }
 
+    // Egy ellenőrző változó annak ellenőrzéséhez, hogy a függvény talált-e adatot. 
+    bool check = false;
+
     book_list_ptr p = books->head->next;
 
     while (p != books->tail) {
-        if (strstr(p->book.author, author))
+        if (strstr(p->book.author, author)) {
             print_book(p->book);
+            check = true;
+        }
         p = p->next;
     }
+
+    if (check == false)
+        printf("\nNincs találat\n");    
+        
+    printf("Nyomjon Enter-t a folytatáshoz!\n");
 }
 
 // Az összes olyan könyv keresése, amelynek műfaja tartalmazza a megadott karakterláncot. Nem mindegy a nagy és kisbetűk használata.
@@ -238,13 +249,23 @@ void search_for_genre(void *list_of_books, char *genre)
         return;
     }
 
+    // Egy ellenőrző változó annak ellenőrzéséhez, hogy a függvény talált-e adatot. 
+    bool check = false;
+
     book_list_ptr p = books->head->next;
 
     while (p != books->tail) {
-        if (strstr(p->book.genres, genre))
+        if (strstr(p->book.genres, genre)){
             print_book(p->book);
+            check = true;
+        }        
         p = p->next;
     }
+
+    if (check == false)
+        printf("\nNincs találat\n");    
+        
+    printf("Nyomjon Enter-t a folytatáshoz!\n");
 }
 
 // Az összes olyan könyv keresése, amelynek címe tartalmazza a megadott karakterláncot. Nem mindegy a nagy és kisbetűk használata.
@@ -260,12 +281,22 @@ void search_for_title(void *list_of_books, char *title)
         return;
     }
 
+    // Egy ellenőrző változó annak ellenőrzéséhez, hogy a függvény talált-e adatot. 
+    bool check = false;
+
     book_list_ptr p = books->head->next;
 
     while (p != books->tail) {
-        if (strstr(p->book.title, title))
+        if (strstr(p->book.title, title)){
             print_book(p->book);
+            check = true;
+        }
         p = p->next;
     }
+
+    if (check == false)
+        printf("\nNincs találat\n");    
+        
+    printf("Nyomjon Enter-t a folytatáshoz!\n");
 }
 

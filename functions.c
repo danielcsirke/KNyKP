@@ -75,6 +75,13 @@ void clear_input_stream(void)
     while(scanf("%c",&c)==1);
 }
 
+void clear_input() 
+{
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+
 // A parancssori eddig kiírt infók törlése a képernyőről
 void clear_screen(void)
 {
@@ -102,6 +109,8 @@ void perform_search(search_function_ptr search_function, void *list)
         return;
     }
 
+    clear_input();
+    
     // A keresési kulcs bekérése a felhasználótól.
     printf("Kérem adja meg a keresési kulcsot! Ügyeljen a kis- és nagybetűk helyes használatára!\n");
 
@@ -115,7 +124,7 @@ void perform_search(search_function_ptr search_function, void *list)
     // Eltávolítjuk az fgets által hozzáadot newline ('\n') karaktert
     del_last_newline(temp);
 
-    printf("Adat keresése...\n");
+    printf("Adat keresése...\n\n");
     search_function(list, temp);
 
     free(temp);

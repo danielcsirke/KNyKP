@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "customers.h"
 #include "functions.h"
 #include "config.h"
@@ -194,11 +195,21 @@ void search_for_name(void *list_of_customers, char *name)
 
     customer_list_ptr p = customers->head->next;
 
+    // Egy ellenőrző változó létrehozása arra, hogy talált-e a függvény adatot. 
+    bool check = false;
+
     while (p != customers->tail) {
-        if (strstr(p->customer.name, name))
+        if (strstr(p->customer.name, name)){
             print_customer(p->customer);
+            check = true;
+        }
         p = p->next;
     }
+
+    if (check == false)
+        printf("\nNincs találat\n");
+    
+    printf("Nyomjon Enter-t a folytatáshoz!\n");
 }
 
 // Az összes olyan ember keresése, amelynek azonosítószáma tartalmazza a megadott karatkerláncot. 

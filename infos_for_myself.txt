@@ -1,4 +1,0 @@
-valgrind --leak-check=full ./program
-
-
-

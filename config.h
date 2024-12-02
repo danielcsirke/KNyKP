@@ -2,7 +2,7 @@
 #define CONFIG_H
 
 
-#define INPUT_BUFFER 256001
+#define INPUT_BUFFER 4096
 
 
 #endif

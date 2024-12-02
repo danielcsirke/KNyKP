@@ -6,12 +6,15 @@
     #include "functions.h"
     #include "config.h"
 
+// Ez a program egy könyv- és ügyfélkezelő alkalmazás, amely fájlokból olvassa az adatokat,
+// lehetőséget nyújt a keresésre, és a felhasználói interakciókat menüvezérelt módon kezeli.
 
 
     int main(void)
     {
-        // A parancssor tisztítása
+        // A képernyő törlése az induláskor, hogy a program tiszta felülettel kezdődjön.
         clear_screen();
+        
         // A listák létrehozása - kétszeresen láncolt strázsás listák.
         clist customers = create_clist();
         blist books = create_blist();

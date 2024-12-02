@@ -3,6 +3,9 @@
 #include "functions.h"
 #include "config.h"
 
+// Ezen fájl általános függvényeket tartalmaz a könyvtári programhoz. Az alábbi feladatokat látja el: 
+// file-ok megnyitása, bezárása, általános utility funkciók végrehajtása (újsor eltávolítása, képernyő törlése, etc.) és tartalmazza a keresési logikát végrehajtó függvényt. 
+
 // Megnyitja a paraméterként kapott filenevű file-okat.
 int open_files(char *file_c, char *file_b, FILE **fc, FILE **fb)
 {
@@ -63,16 +66,6 @@ void print_menu(void)
     printf("6. Keresés stílusokra\n");
     printf("0. Kilépés\n");
     printf("--------------\n");
-}
-
-// A bemenet törlése - a fflush(stdin) csak kimeneti stream-eken működik, azért kell ehhez a módhoz folyamodni
-
-void clear_input_stream(void)
-{
-    // Törli a paraméterként kapott file pointer helyen található adatokat. 
-    char c;
-    //while ((c = getchar()) != '\n' && c != EOF );
-    while(scanf("%c",&c)==1);
 }
 
 void clear_input() 

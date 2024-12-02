@@ -6,6 +6,7 @@
 #include "functions.h"
 #include "config.h"
 
+// Ezen függvények egy könyvlistát kezelnek, lehetővé téve a könyvek tárolását, keresését és megjelenítését.
 
 // A függvénypointerek értékadása. Deklaráció a books.h file-ban.
 search_function_ptr search_for_author_ptr = search_for_author;

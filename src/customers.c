@@ -6,6 +6,8 @@
 #include "functions.h"
 #include "config.h"
 
+// Ezen függvények egy embereket tartalmazó listát kezelnek, lehetővé téve az emberek adatainak tárolását, keresését és megjelenítését.
+
 // A függvénypointerek értékadása. Deklaráció a books.h file-ban.
 search_function_ptr search_for_name_ptr = search_for_name;
 search_function_ptr search_for_id_ptr = search_for_id;

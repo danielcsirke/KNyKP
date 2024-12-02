@@ -10,7 +10,7 @@
 // lehetőséget nyújt a keresésre, és a felhasználói interakciókat menüvezérelt módon kezeli.
 
 
-    int main(void)
+int main(void)
     {
         // A képernyő törlése az induláskor, hogy a program tiszta felülettel kezdődjön.
         clear_screen();

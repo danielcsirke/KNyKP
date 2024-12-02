@@ -17,8 +17,7 @@ void close_files(FILE **fc, FILE **fb);
 // A beolvasás során fgets() függvény által bekért utolsó newline karaktereket eltávolítja. 
 void del_last_newline(char *str); 
 
-// Mivel a c szabványban a fflush(stdin) nincs definiálva (forrás: cppreference.com) ezért kellett implementálni, hogy a hibás melléütések ne okozzanak hibát
-//  void clear_input_stream(void); 
+// A bemeneten lévő hibás karakterek törlésére alkalmas függvény.
 void clear_input();
 
 // A parancssori kiírt infók törlés a jobb kinézet érdekében

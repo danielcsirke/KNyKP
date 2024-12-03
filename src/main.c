@@ -1,10 +1,10 @@
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <string.h>
-    #include "books.h"
-    #include "customers.h"
-    #include "functions.h"
-    #include "config.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "books.h"
+#include "customers.h"
+#include "functions.h"
+#include "config.h"
 
 // Ez a program egy könyv- és ügyfélkezelő alkalmazás, amely fájlokból olvassa az adatokat,
 // lehetőséget nyújt a keresésre, és a felhasználói interakciókat menüvezérelt módon kezeli.
